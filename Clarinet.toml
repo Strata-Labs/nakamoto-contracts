@@ -1,0 +1,68 @@
+[project]
+name = 'nakamoto_1_level_1'
+description = ''
+authors = []
+telemetry = true
+cache_dir = './.cache'
+
+[[project.requirements]]
+contract_id = 'SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait'
+
+[[project.requirements]]
+contract_id = 'SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH.Nakamoto_1_Level_1'
+
+[[project.requirements]]
+contract_id = 'SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH.Nakamoto_1_Level_2'
+
+[[project.requirements]]
+contract_id = 'SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH.Nakamoto_1_Android'
+
+[[project.requirements]]
+contract_id = 'SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH.Nakamoto_1_Gold_Android'
+[contracts.Nakamoto_1_Android]
+path = 'contracts/Nakamoto_1_Android.clar'
+clarity_version = 3
+epoch = 3.0
+
+[contracts.Nakamoto_1_Gold_Android]
+path = 'contracts/Nakamoto_1_Gold_Android.clar'
+clarity_version = 3
+epoch = 3.0
+
+[contracts.Nakamoto_1_Level_1]
+path = 'contracts/Nakamoto_1_Level_1.clar'
+clarity_version = 3
+epoch = 3.0
+
+[contracts.Nakamoto_1_Level_2]
+path = 'contracts/Nakamoto_1_Level_2.clar'
+clarity_version = 3
+epoch = 3.0
+
+[contracts.Nakamoto_2]
+path = 'contracts/Nakamoto_2.clar'
+clarity_version = 3
+epoch = 3.0
+
+[contracts.Old_Nakamoto]
+path = 'contracts/Old_Nakamoto.clar'
+clarity_version = 3
+epoch = 3.0
+
+[contracts.nakamoto_3]
+path = 'contracts/nakamoto_3.clar'
+clarity_version = 3
+epoch = 3.0
+
+[contracts.nakamoto_4]
+path = 'contracts/nakamoto_4.clar'
+clarity_version = 3
+epoch = 3.0
+[repl.analysis]
+passes = ['check_checker']
+
+[repl.analysis.check_checker]
+strict = false
+trusted_sender = false
+trusted_caller = false
+callee_filter = false
