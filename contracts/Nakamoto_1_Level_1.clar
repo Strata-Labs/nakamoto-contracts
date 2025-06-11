@@ -571,6 +571,5 @@
    ;; 1. Get the block information from the specified block height
    ;; 2. Call the get-owner function on the Old_Nakamoto contract for the specified NFT ID
    ;; 3. Unwrap the response to get the principal or none
-;;   (unwrap-panic (at-block (unwrap-panic (get-stacks-block-info? id-header-hash block)) (contract-call? 'SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH.Nakamoto_1_Level_1 get-owner id)))
-  (unwrap-panic (at-block (unwrap-panic (get-stacks-block-info? id-header-hash block)) (contract-call? .Old_Nakamoto get-owner id)))
+   (unwrap-panic (at-block (unwrap-panic (get-stacks-block-info? id-header-hash block)) (contract-call? 'SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH.Nakamoto_1_Level_1 get-owner id)))  
 )
