@@ -550,15 +550,9 @@
     (let 
         (
             ;; Look up who owned NFT ID 'which' at block height u1108000 in the old contract
-            (owner-at-block (get-owner-at-block which u5))
+            (owner-at-block (get-owner-at-block which u104467))
         ) 
-        ;; Check if we found an owner
-        (match owner-at-block owner-exists
-                ;; If an owner was found, mint to that owner
-                (is-err (Mint_Nakamoto_1_Level_1_Drop owner-exists)) 
-                ;; If no owner was found, mint to the tx-sender
-                (is-err (Mint_Nakamoto_1_Level_1_Drop tx-sender)) 
-        )
+        (is-ok (Mint_Nakamoto_1_Level_1_Drop (default-to tx-sender owner-at-block)))
         (+ id u1)
     )
 )

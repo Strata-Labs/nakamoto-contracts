@@ -60,34 +60,6 @@ plan:
     - id: 0
       transactions:
         - emulated-contract-publish:
-            contract-name: nft-trait
-            emulated-sender: SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9
-            path: "./.cache/requirements/SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9.nft-trait.clar"
-            clarity-version: 1
-        - emulated-contract-publish:
-            contract-name: Nakamoto_1_Level_1
-            emulated-sender: SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH
-            path: "./.cache/requirements/SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH.Nakamoto_1_Level_1.clar"
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: Nakamoto_1_Level_2
-            emulated-sender: SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH
-            path: "./.cache/requirements/SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH.Nakamoto_1_Level_2.clar"
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: Nakamoto_1_Android
-            emulated-sender: SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH
-            path: "./.cache/requirements/SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH.Nakamoto_1_Android.clar"
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: Nakamoto_1_Gold_Android
-            emulated-sender: SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH
-            path: "./.cache/requirements/SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH.Nakamoto_1_Gold_Android.clar"
-            clarity-version: 2
-      epoch: "2.1"
-    - id: 1
-      transactions:
-        - emulated-contract-publish:
             contract-name: Nakamoto_1_Level_1
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/Nakamoto_1_Level_1.clar
