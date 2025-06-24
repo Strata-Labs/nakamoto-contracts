@@ -303,7 +303,7 @@
     (let 
         (
             ;; Look up who owned NFT ID 'which' at block height u1108000 in the old contract
-            (owner-at-block (get-owner-at-block which u7))
+            (owner-at-block (get-owner-at-block which u1108000))
         ) 
         ;; Check if we found an owner
         (match owner-at-block owner-exists
@@ -358,10 +358,10 @@
   (unwrap-panic (at-block (unwrap-panic (get-stacks-block-info? id-header-hash block)) (contract-call? .Nakamoto_2 get-owner id)))
 )
 
-(define-read-only (get-last-token-at-block (block uint))
+(define-read-only (get-last-token-at-block)
    ;; 1. Get the block information from the specified block height
    ;; 2. Call the get-last-token-id function on the Old_Nakamoto contract 
    ;; 3. Unwrap the response to get the uint
-;;   (unwrap-panic (at-block (unwrap-panic (get-stacks-block-info? id-header-hash block)) (contract-call? 'SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH.Nakamoto_1_Level_2 get-last-token-id)))
-  (unwrap-panic (at-block (unwrap-panic (get-stacks-block-info? id-header-hash block)) (contract-call? .Nakamoto_2 get-last-token-id)))
+;;   (unwrap-panic (at-block (unwrap-panic (get-stacks-block-info? id-header-hash u1108000)) (contract-call? 'SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH.Nakamoto_1_Level_2 get-last-token-id)))
+  (unwrap-panic (at-block (unwrap-panic (get-stacks-block-info? id-header-hash u1108000)) (contract-call? .Nakamoto_2 get-last-token-id)))
 )
