@@ -236,7 +236,7 @@
 ;; Similar to regular mint but doesn't check if minting is paused and does not burn nfts, they are already burnt from migration 1
 ;; Used exclusively for migration purposes
 ;; @param owner: The principal that will receive the NFT
-(define-public (Mint_Nakamoto_1_Android_Drop (owner principal))
+(define-private (Mint_Nakamoto_1_Android_Drop (owner principal))
   (let
     (
       (current-Nakamoto_1_Android-index (var-get Nakamoto_1_Android-index))

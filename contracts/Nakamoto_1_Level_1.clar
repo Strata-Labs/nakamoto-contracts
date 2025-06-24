@@ -501,7 +501,7 @@
 ;; Similar to regular mint but doesn't check if minting is paused and does not transfer stx
 ;; Used exclusively for migration purposes
 ;; @param owner: The principal that will receive the NFT
-(define-public (Mint_Nakamoto_1_Level_1_Drop (owner principal))
+(define-private (Mint_Nakamoto_1_Level_1_Drop (owner principal))
    (let 
        ( 
            ;; Get current NFT index
