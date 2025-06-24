@@ -284,6 +284,38 @@
 
 ;; Migration Airdrop
 
+;; Function to airdrop NFTs based on a list of uints
+;; @param l1: A list of up to 1000 uint identifiers that will be used to determine NFT recipients
+(define-public (airdrop-uints (l1 (list 1000 uint)))
+    (ok 
+        (begin 
+            (asserts! (is-eq DEPLOYER tx-sender) ERR-NOT-AUTH) 
+            (fold drop-uint l1 (var-get Nakamoto_1_Level_2-index))
+        )
+    )
+)
+
+;; Private helper function that processes each uint in the airdrop list
+;; This is the core migration logic that maps old NFT IDs to owners
+;; @param which: The NFT ID to look up in the old contract
+;; @param id: The current NFT ID counter
+(define-private (drop-uint (which uint) (id uint))
+    (let 
+        (
+            ;; Look up who owned NFT ID 'which' at block height u1108000 in the old contract
+            (owner-at-block (get-owner-at-block which u7))
+        ) 
+        ;; Check if we found an owner
+        (match owner-at-block owner-exists
+                ;; If an owner was found, mint to that owner
+                (is-err (Mint_Nakamoto_1_Level_2_Drop owner-exists)) 
+                ;; If no owner was found, mint to the tx-sender
+                (is-err (Mint_Nakamoto_1_Level_2_Drop tx-sender)) 
+        )
+        (+ id u1)
+    )
+)
+
 ;; Special Mint Function for Migration Airdrops
 ;; Similar to regular mint but doesn't check if minting is paused and does not burn nfts, they are already burnt from migration 1
 ;; Used exclusively for migration purposes
@@ -314,38 +346,6 @@
     )
 )
 
-;; Function to airdrop NFTs based on a list of uints
-;; @param l1: A list of up to 1000 uint identifiers that will be used to determine NFT recipients
-(define-public (airdrop-uints (l1 (list 1000 uint)))
-    (ok 
-        (begin 
-            (asserts! (is-eq DEPLOYER tx-sender) ERR-NOT-AUTH) 
-            (fold drop-uint l1 (var-get Nakamoto_1_Level_2-index))
-        )
-    )
-)
-
-;; Private helper function that processes each uint in the airdrop list
-;; This is the core migration logic that maps old NFT IDs to owners
-;; @param which: The NFT ID to look up in the old contract
-;; @param id: The current NFT ID counter
-(define-private (drop-uint (which uint) (id uint))
-    (let 
-        (
-            ;; Look up who owned NFT ID 'which' at block height u1108000 in the old contract
-            (owner-at-block (get-owner-at-block which u5))
-        ) 
-        ;; Check if we found an owner
-        (match owner-at-block owner-exists
-                ;; If an owner was found, mint to that owner
-                (is-err (Mint_Nakamoto_1_Level_2_Drop owner-exists)) 
-                ;; If no owner was found, mint to the tx-sender
-                (is-err (Mint_Nakamoto_1_Level_2_Drop tx-sender)) 
-        )
-        (+ id u1)
-    )
-)
-
 ;; Read-only function to get the owner of an NFT at a specific block height
 ;; Used to look up ownership data in the old contract
 ;; @param id: The NFT ID to check ownership for
@@ -356,4 +356,12 @@
    ;; 3. Unwrap the response to get the principal or none
 ;;   (unwrap-panic (at-block (unwrap-panic (get-stacks-block-info? id-header-hash block)) (contract-call? 'SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH.Nakamoto_1_Level_2 get-owner id)))
   (unwrap-panic (at-block (unwrap-panic (get-stacks-block-info? id-header-hash block)) (contract-call? .Nakamoto_2 get-owner id)))
+)
+
+(define-read-only (get-last-token-at-block (block uint))
+   ;; 1. Get the block information from the specified block height
+   ;; 2. Call the get-last-token-id function on the Old_Nakamoto contract 
+   ;; 3. Unwrap the response to get the uint
+;;   (unwrap-panic (at-block (unwrap-panic (get-stacks-block-info? id-header-hash block)) (contract-call? 'SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH.Nakamoto_1_Level_2 get-last-token-id)))
+  (unwrap-panic (at-block (unwrap-panic (get-stacks-block-info? id-header-hash block)) (contract-call? .Nakamoto_2 get-last-token-id)))
 )

@@ -232,29 +232,6 @@
 
 ;; Migration Airdrop
 
-;; Special Mint Function for Migration Airdrops
-;; Similar to regular mint but doesn't check if minting is paused and does not burn nfts, they are already burnt from migration 1
-;; Used exclusively for migration purposes
-;; @param owner: The principal that will receive the NFT
-(define-private (Mint_Nakamoto_1_Android_Drop (owner principal))
-  (let
-    (
-      (current-Nakamoto_1_Android-index (var-get Nakamoto_1_Android-index))
-      (next-Nakamoto_1_Android-index (+ u1 (var-get Nakamoto_1_Android-index)))
-    )
-    
-    ;; Mint Nakamoto_1_Android
-    (try! (nft-mint? Nakamoto_1_Android current-Nakamoto_1_Android-index owner))
-    (var-set Nakamoto_1_Android-index next-Nakamoto_1_Android-index)
-    (if (is-eq owner DEPLOYER)
-        (unwrap! (nft-burn? Nakamoto_1_Android current-Nakamoto_1_Android-index owner) ERR-NFT-BURN)
-        false
-    )
-    ;; Update Nakamoto_1_Android-index
-    (ok true)
-  )
-)
-
 ;; Function to airdrop NFTs based on a list of uints
 ;; @param l1: A list of up to 1000 uint identifiers that will be used to determine NFT recipients
 (define-public (airdrop-uints (l1 (list 1000 uint)))
@@ -287,6 +264,29 @@
     )
 )
 
+;; Special Mint Function for Migration Airdrops
+;; Similar to regular mint but doesn't check if minting is paused and does not burn nfts, they are already burnt from migration 1
+;; Used exclusively for migration purposes
+;; @param owner: The principal that will receive the NFT
+(define-private (Mint_Nakamoto_1_Android_Drop (owner principal))
+  (let
+    (
+      (current-Nakamoto_1_Android-index (var-get Nakamoto_1_Android-index))
+      (next-Nakamoto_1_Android-index (+ u1 (var-get Nakamoto_1_Android-index)))
+    )
+    
+    ;; Mint Nakamoto_1_Android
+    (try! (nft-mint? Nakamoto_1_Android current-Nakamoto_1_Android-index owner))
+    (var-set Nakamoto_1_Android-index next-Nakamoto_1_Android-index)
+    (if (is-eq owner DEPLOYER)
+        (unwrap! (nft-burn? Nakamoto_1_Android current-Nakamoto_1_Android-index owner) ERR-NFT-BURN)
+        false
+    )
+    ;; Update Nakamoto_1_Android-index
+    (ok true)
+  )
+)
+
 ;; Read-only function to get the owner of an NFT at a specific block height
 ;; Used to look up ownership data in the old contract
 ;; @param id: The NFT ID to check ownership for
@@ -298,4 +298,12 @@
 ;;   (unwrap-panic (at-block (unwrap-panic (get-stacks-block-info? id-header-hash block)) (contract-call? 'SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH.Nakamoto_1_Android get-owner id)))
     (unwrap-panic (at-block (unwrap-panic (get-stacks-block-info? id-header-hash block)) (contract-call? .nakamoto_3 get-owner id)))
 
+)
+
+(define-read-only (get-last-token-at-block (block uint))
+   ;; 1. Get the block information from the specified block height
+   ;; 2. Call the get-last-token-id function on the Old_Nakamoto contract 
+   ;; 3. Unwrap the response to get the uint
+;;   (unwrap-panic (at-block (unwrap-panic (get-stacks-block-info? id-header-hash block)) (contract-call? 'SP2EEV5QBZA454MSMW9W3WJNRXVJF36VPV17FFKYH.Nakamoto_1_Android get-last-token-id)))
+  (unwrap-panic (at-block (unwrap-panic (get-stacks-block-info? id-header-hash block)) (contract-call? .nakamoto_3 get-last-token-id)))
 )
